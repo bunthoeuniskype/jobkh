@@ -169,6 +169,8 @@ return [
          */
          Barryvdh\Cors\ServiceProvider::class,
          Intervention\Image\ImageServiceProvider::class,
+         Liebig\Cron\Laravel5ServiceProvider::class,
+         Yangqi\Htmldom\HtmldomServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -227,6 +229,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'Htmldom' => Yangqi\Htmldom\Htmldom::class,
 
     ],
 

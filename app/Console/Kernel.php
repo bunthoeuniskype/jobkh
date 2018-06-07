@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        \App\Console\load\jobHr::class,
     ];
 
     /**
@@ -26,6 +26,11 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $schedule->command('jobhr');
+       // \Cron::add('example2', '* * * * *', function() {
+       //              // Do some crazy things successfully every minute
+       //              return null;
+       //          });
     }
 
     /**
