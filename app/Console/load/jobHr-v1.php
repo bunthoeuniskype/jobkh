@@ -4,7 +4,6 @@ namespace App\Console\load;
 
 use Illuminate\Console\Command;
 use Stichoza\GoogleTranslate\TranslateClient;
-// use Google\Cloud\Translate\TranslateClient;
 use App\Category;
 use App\Content;
 use App\City;
@@ -51,22 +50,7 @@ class jobHr extends Command
         // $tr->setTarget('en'); // Translate to Georgian
         $tr = new TranslateClient();
         $tr->setUrlBase($this->trans_url); // Set Google Translate URL base (This is not necessary, only for some countries)
-        // $translate = new TranslateClient([ 'projectId' => 'my-project-1519317634745' ]);
-
-        // $text = 'The text to translate.';
-        // $targetLanguage = 'ja';  // Which language to translate to?
-        // $model = 'base';  // "base" for standard edition, "nmt" for premium
-
-        // $translate = new TranslateClient();
-        // $result = $translate->translate($text, [
-        //     'target' => $targetLanguage,
-        //     'model'  => $model,
-        // ]);
-        // print("Source language: $result[source]\n");
-        // print("Translation: $result[text]\n");
-        // print("Model: $result[model]\n");
-        // exit();
-
+              
         $html = new \Htmldom($this->site_url);  
 
         $catTextArr = array();
