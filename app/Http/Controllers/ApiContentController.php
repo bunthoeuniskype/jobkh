@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Resources\Contents as ContentsResource;
+use App\Http\Resources\ContentDetail as ContentDetailResource;
 use App\Content;
 
 class ApiContentController extends Controller
@@ -16,9 +17,7 @@ class ApiContentController extends Controller
     public function index(Request $request)
     {
           $cond = [];
-
-          //$cond[] = ['locale',config("app.locale")];
-          $cond[] = ['locale','zh-CN'];
+          $cond[] = ['locale',config("app.locale")];        
           if($request->city_id){
             $cond[] = ['city_id',$request->city_id];
            }
@@ -26,7 +25,6 @@ class ApiContentController extends Controller
            if($request->category_id){
             $cond[] = ['category_id',$request->category_id];
            }
-
 
        return new ContentsResource(Content::where($cond)->paginate());
     }
@@ -58,9 +56,23 @@ class ApiContentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+          $cond = [];
+          $cond[] = ['locale',config("app.locale")];        
+          if($request->city_id){
+            $cond[] = ['city_id',$request->city_id];
+           }
+
+           if($request->category_id){
+            $cond[] = ['category_id',$request->category_id];
+           }
+
+           if($request->id){
+            $cond[] = ['id',$request->id];
+           }
+
+       return new ContentDetailResource(Content::where($cond)->get());
     }
 
     /**

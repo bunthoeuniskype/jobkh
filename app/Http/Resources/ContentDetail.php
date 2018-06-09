@@ -6,7 +6,7 @@ use Illuminate\Http\Resources\Json\Resource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Collection;
 
-class Contents extends ResourceCollection
+class ContentDetail extends ResourceCollection
 {
     /**
      * Transform the resource into an array.
@@ -14,10 +14,10 @@ class Contents extends ResourceCollection
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function toArray($request)
+   public function toArray($request)
     {
         return [
-            'data' => ContentList::collection($this->collection),
+            'data' => Content::collection($this->collection),
         ];
     }
 

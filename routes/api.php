@@ -14,10 +14,14 @@ use Illuminate\Http\Request;
 */
 Route::post('upload/multiple','ArticleController@uploadMultiple');
 
-Route::get('category','ApiCategoryController@index');
-Route::get('city','ApiCityController@index');
-Route::get('content/list','ApiContentController@list');
-Route::get('content','ApiContentController@index');
+Route::group(['middleware'=>'api-lang'], function () {
+
+   	Route::get('category','ApiCategoryController@index');
+	Route::get('city','ApiCityController@index');
+	Route::get('content','ApiContentController@index');
+	Route::get('content/detail','ApiContentController@show');
+
+});
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

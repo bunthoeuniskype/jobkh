@@ -20,8 +20,7 @@ class Category extends Resource
             'attributes'    => [
                 'name' => $this->name,
                 'locale' => $this->locale,
-            ],
-            //'relationships' => new ArticleRelationshipResource($this),
+            ],            
             'links'         => [
                 'self' => '',
             ],
