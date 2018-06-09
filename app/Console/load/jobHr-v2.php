@@ -47,6 +47,9 @@ class jobHr extends Command
     public function handle()
     {
        
+        $tr = new TranslateClient();
+        $tr->setUrlBase($this->trans_url); // Set Google Translate URL base (This 
+
         $html = new \Htmldom($this->site_url);  
 
         $catTextArr = array();
@@ -55,12 +58,12 @@ class jobHr extends Command
         
         $transFrom = 'zh-CN';
         $extraLang = array(
-                array('code'=>'km','name'=>'Khmer'),
-                array('code'=>'en','name'=>'English'),
-                //array('code'=>'zh-CN','name'=>'Chinese'),
-                array('code'=>'ko','name'=>'Korean'),
-                array('code'=>'th','name'=>'Thai'),
-                array('code'=>'ja','name'=>'Japanese')
+               //  array('code'=>'km','name'=>'Khmer'),
+               // //array('code'=>'en','name'=>'English'),
+               //  array('code'=>'zh-CN','name'=>'Chinese'),
+               //  array('code'=>'ko','name'=>'Korean'),
+               //  array('code'=>'th','name'=>'Thai'),
+               //  array('code'=>'ja','name'=>'Japanese')
             );
 
         //category 
@@ -73,8 +76,6 @@ class jobHr extends Command
              $locationTextArr[$key] = $element->find('a',0)->text();
          }      
 
-        $tr = new TranslateClient();
-        $tr->setUrlBase($this->trans_url); // Set Google Translate URL base (This 
           //insert City
          foreach ($locationTextArr as $key => $val) {
             if(!City::where('name_compare',$val)->exists()){
@@ -97,31 +98,7 @@ class jobHr extends Command
                 $ci->save();
             }                       
            }                      
-         }        
-         echo 'finish city'."\n";
-         
-         foreach ($catTextArr as $key => $val) {
-            if(!Category::where('name_compare',$val)->exists()){
-            //save en
-            $cate = new Category;
-            $cate->name = $val;//$tr->setSource($transFrom)->setTarget('en')->translate($val);
-            $cate->name_compare = $val;
-            $cate->locale = 'zh-CN';
-            $cate->save();
-            $id = $cate->id;
-            //save other
-            foreach ($extraLang as $key => $v) {
-                $cate = new Category;
-                $cate->id = $id;
-                $cate->name = $tr->setSource($transFrom)->setTarget($v['code'])->translate($val);
-                $cate->name_compare = $val;
-                $cate->locale = $v['code'];
-                $cate->save();
-             }           
-            }     
-          }        
-         echo 'finish category'."\n";
-         
+         }       
          $i = 0;
         //insert category
          foreach ($catTextArr as $key => $val) {
@@ -348,7 +325,8 @@ class jobHr extends Command
                     $cont->title = $title;//?$tr->setSource($transFrom)->setTarget('en')->translate($title):'';
                     $cont->title_compare = $title;
                     $cont->description = $description;                    
-                    $cont->locale = 'zh-CN';
+                    $cont->locale = 'zh-CN
+                    ';
                     $cont->city_id = $city_id;
                     $cont->category_id = $category_id;
                     $cont->job_requirement = $job_requirement;
@@ -378,43 +356,43 @@ class jobHr extends Command
                     $cont->hr_id = $hrId;
                     $cont->save();
                     $id = $cont->id;
-               //      foreach ($extraLang as $key => $v) {
-               //          $cont = new Content;
-               //          $cont->id = $id;
-               //          $cont->title = $title?$tr->setSource($transFrom)->setTarget($v['code'])->translate($title):$title;
-               //          $cont->title_compare = $title;
-               //          $cont->description = $description;
-               //          $cont->locale = $v['code'];
-               //          $cont->city_id = $city_id;
-               //          $cont->category_id = $category_id;
-               //          $cont->job_requirement = $job_requirement;
-               //          $cont->experience =  trim($experience);
-               //          $cont->level =  $level?$tr->setSource($transFrom)->setTarget($v['code'])->translate($level):$level;
-               //          $cont->hiring = trim($hiring);
-               //          $cont->salary = $salary?$tr->setSource($transFrom)->setTarget($v['code'])->translate($salary):'';
-               //          $cont->sex = $sex?$tr->setSource($transFrom)->setTarget($v['code'])->translate($sex):'';
-               //          $cont->age = trim($age);
-               //          $cont->term = $term?$tr->setSource($transFrom)->setTarget($v['code'])->translate($term):'';
-               //          $cont->function = $function?$tr->setSource($transFrom)->setTarget($v['code'])->translate($function):'';
-               //          $cont->industry = $industry?$tr->setSource($transFrom)->setTarget($v['code'])->translate($industry):'';
-               //          $cont->qualification = $qualification?$tr->setSource($transFrom)->setTarget($v['code'])->translate($qualification):'';
-               //          $cont->language = $language?$tr->setSource($transFrom)->setTarget($v['code'])->translate($language):'';
-               //          $cont->location = $location?$tr->setSource($transFrom)->setTarget($v['code'])->translate($location):'';
-               //          $cont->publish_date = $publish_date;
-               //          $cont->close_date = $close_date;
-               //          $cont->company = $company;
-               //          $cont->contact = $contact;
-               //          $cont->phone = $phone;
-               //          $cont->email = $email;
-               //          $cont->website = $website;
-               //          $cont->address = $address;
-               //          $cont->type = $type?$tr->setSource($transFrom)->setTarget($v['code'])->translate($type):'';
-               //          $cont->employee = $employee;
-               //          $cont->company_profile = $company_profile;
-               //          $cont->hr_id = $hrId;
-               //          $cont->save();
-               //      }  
-                  }
+                    foreach ($extraLang as $key => $v) {
+                        $cont = new Content;
+                        $cont->id = $id;
+                        $cont->title = $title?$tr->setSource($transFrom)->setTarget($v['code'])->translate($title):$title;
+                        $cont->title_compare = $title;
+                        $cont->description = $description;
+                        $cont->locale = $v['code'];
+                        $cont->city_id = $city_id;
+                        $cont->category_id = $category_id;
+                        $cont->job_requirement = $job_requirement;
+                        $cont->experience =  trim($experience);
+                        $cont->level =  $level?$tr->setSource($transFrom)->setTarget($v['code'])->translate($level):$level;
+                        $cont->hiring = trim($hiring);
+                        $cont->salary = $salary?$tr->setSource($transFrom)->setTarget($v['code'])->translate($salary):'';
+                        $cont->sex = $sex?$tr->setSource($transFrom)->setTarget($v['code'])->translate($sex):'';
+                        $cont->age = trim($age);
+                        $cont->term = $term?$tr->setSource($transFrom)->setTarget($v['code'])->translate($term):'';
+                        $cont->function = $function?$tr->setSource($transFrom)->setTarget($v['code'])->translate($function):'';
+                        $cont->industry = $industry?$tr->setSource($transFrom)->setTarget($v['code'])->translate($industry):'';
+                        $cont->qualification = $qualification?$tr->setSource($transFrom)->setTarget($v['code'])->translate($qualification):'';
+                        $cont->language = $language?$tr->setSource($transFrom)->setTarget($v['code'])->translate($language):'';
+                        $cont->location = $location?$tr->setSource($transFrom)->setTarget($v['code'])->translate($location):'';
+                        $cont->publish_date = $publish_date;
+                        $cont->close_date = $close_date;
+                        $cont->company = $company;
+                        $cont->contact = $contact;
+                        $cont->phone = $phone;
+                        $cont->email = $email;
+                        $cont->website = $website;
+                        $cont->address = $address;
+                        $cont->type = $type?$tr->setSource($transFrom)->setTarget($v['code'])->translate($type):'';
+                        $cont->employee = $employee;
+                        $cont->company_profile = $company_profile;
+                        $cont->hr_id = $hrId;
+                        $cont->save();
+                    }  
+                 }
                } //check content not exists
                 
                 $i++;
