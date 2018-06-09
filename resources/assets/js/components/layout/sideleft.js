@@ -32,18 +32,11 @@ export default class Sideleft extends Component {
 
     return (    
       <MuiThemeProvider>  
-        <div>     
+             <div>     
             <Paper style={style.paper}>
-            <Menu>
-                <MenuItem primaryText="Preview" leftIcon={<RemoveRedEye />} />
-                <MenuItem primaryText="Share" leftIcon={<PersonAdd />} />
-                <MenuItem primaryText="Get links" leftIcon={<ContentLink />} />
-                <Divider />
-                <MenuItem primaryText="Make a copy" leftIcon={<ContentCopy />} />
-                <MenuItem primaryText="Download" leftIcon={<Download />} />
-                <Divider />
-                <MenuItem primaryText="Remove" leftIcon={<Delete />} />
-            </Menu>
+            <a href="https://play.google.com/store/apps/details?id=com.appcalendar" title="Calendar Kh" target="_blank"> 
+               <img src="https://lh3.googleusercontent.com/e1NrfqK2uu_KNnCRIRWP9y3Uyx3cqUt29AfzXtidnxfhuctigbAp9uDzU3fYxh1p5Bp7=w720-h310-rw"/>
+            </a>           
             </Paper>            
            </div>      
       </MuiThemeProvider>  

@@ -19,13 +19,13 @@ class Master extends Component {
         <nav className="navbar navbar-default">
           <div className="container-fluid">
             <div className="navbar-header">
-              <a className="navbar-brand" href="#">B-Site Solution</a>
+              <Link className="navbar-brand"  to={this._baseUrl+"/"}>Job Finder</Link>
             </div>
             <ul className="nav navbar-nav">
               <li className="active"><Link to={this._baseUrl+"/"}>Home</Link></li>
-              <li><Link to={this._baseUrl+"/display-item"}>Items</Link></li>
-              <li><a href="#">Page 2</a></li>
-              <li><a href="#">Page 3</a></li>
+              <li><Link to={this._baseUrl+"/job"}>Jobs</Link></li>
+              <li><Link to={this._baseUrl+"/location"}>Location</Link></li>
+              <li><Link to={this._baseUrl+"/category"}>Category</Link></li>
             </ul>
           </div>
       </nav>

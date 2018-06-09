@@ -4,6 +4,7 @@ namespace App\Console\load;
 
 use Illuminate\Console\Command;
 use Stichoza\GoogleTranslate\TranslateClient;
+// use Google\Cloud\Translate\TranslateClient;
 use App\Category;
 use App\Content;
 use App\City;
@@ -341,7 +342,8 @@ class jobHr extends Command
                            $city_id = $id;     
                         }
                     }                    
-                                         
+                       
+                  
                     $cont = new Content;
                     $cont->title = $title;
                     $cont->title_compare = $title;
@@ -379,10 +381,10 @@ class jobHr extends Command
                     foreach ($extraLang as $key => $v) {
                         $cont = new Content;
                         $cont->id = $id;
-                        $cont->title = $title;//?$tr->setSource($transFrom)->setTarget($v['code'])->translate($title):'';                                     
+                        $cont->title = $title;//?$tr->setSource($transFrom)->setTarget($v['code'])->translate($title):'';
                         $cont->title_compare = $title;
                         $cont->description = $description;                    
-                        $cont->locale = $v['code'];
+                        $cont->locale = 'zh-CN';
                         $cont->city_id = $city_id;
                         $cont->category_id = $category_id;
                         $cont->job_requirement = $job_requirement;
