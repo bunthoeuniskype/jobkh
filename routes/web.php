@@ -23,3 +23,11 @@ Route::resource('articles','ArticleController');
 Route::get('/{alllink}',  function () {
     return view('app');
 });
+
+Route::get('/{alllink}/{alllink1}',  function () {
+    return view('app');
+});
+
+Route::get('/{alllink}/{alllink1}/{alllink2}',  function () {
+    return view('app');
+});

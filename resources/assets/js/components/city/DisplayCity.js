@@ -14,7 +14,7 @@ class DisplayCity extends Component {
                 };
      }
      componentDidMount(){
-       axios.get('api/city?lang=en')
+       axios.get('api/city?lang=en&sort_by=name')
        .then(response => {
          this.setState({ items:response.data.data,all: response.data });
        })
@@ -25,7 +25,7 @@ class DisplayCity extends Component {
     _addMore(){
       if(this.state.all){
         if(this.state.all.links.next){
-          axios.get(this.state.all.links.next+'&lang=en')
+          axios.get(this.state.all.links.next+'&lang=en&sort_by=name')
            .then(response => {
              this.setState({ 
               items: this.state.items.concat(response.data.data),

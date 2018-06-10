@@ -23,13 +23,13 @@ class ContentList extends Resource
                        "city_id" => $this->city_id,
                        "category_id" => $this->category_id,                    
                        "salary" => $this->salary,                     
-                       "publish_date" => $this->publish_date,
-                       "close_date" => $this->close_date,
+                       "publish_date" => date('d M, Y',strtotime($this->publish_date)),
+                       "close_date" => date('d M, Y',strtotime($this->close_date)),
                        "company" => $this->company,                      
                        "hr_id" => $this->hr_id,
              ],
             'relationships' => [
-                'city' => new City($this->city($this->category_id)),
+                'city' => new City($this->city($this->city_id)),
                 'category' => new Category($this->category($this->category_id)),
             ],
             'links'         => [

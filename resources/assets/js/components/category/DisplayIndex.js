@@ -14,7 +14,7 @@ class DisplayIndex extends Component {
                 };
      }
      componentDidMount(){
-       axios.get('api/category?lang=en')
+       axios.get('api/category?lang=en&sort_by=name')
        .then(response => {
          this.setState({ items:response.data.data,all: response.data });
        })
@@ -25,7 +25,7 @@ class DisplayIndex extends Component {
     _addMore(){
       if(this.state.all){
         if(this.state.all.links.next){
-          axios.get(this.state.all.links.next+'&lang=en')
+          axios.get(this.state.all.links.next+'&lang=en&sort_by=name')
            .then(response => {
              this.setState({ 
               items: this.state.items.concat(response.data.data),

@@ -13,8 +13,11 @@ class ApiCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(Request $request)
+    {   
+        if($request->sort_by){            
+            return new CategoriesResource(Category::where('locale',config("app.locale"))->orderBy($request->sort_by,'asc')->paginate()); 
+           }
         return new CategoriesResource(Category::where('locale',config("app.locale"))->paginate());
     }
 

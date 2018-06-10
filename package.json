@@ -21,10 +21,14 @@
     "react-dom": "^15.4.2"
   },
   "dependencies": {
+    "@material-ui/core": "^1.2.1",
     "@tinymce/tinymce-react": "^2.2.0",
     "babel-polyfill": "^6.26.0",
+    "child_process": "^1.0.2",
     "classnames": "^2.2.5",
     "draft-js": "^0.10.5",
+    "fs": "0.0.1-security",
+    "google-translate-api": "^2.3.0",
     "listview-web": "^0.8.0",
     "material-ui": "0.15.4",
     "react-data-components": "^1.2.0",

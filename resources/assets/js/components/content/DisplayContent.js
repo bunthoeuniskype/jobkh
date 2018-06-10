@@ -19,14 +19,19 @@ class DisplayContent extends Component {
                       dataSource,
                       isLoading: true,
                       items: [],
-                      all : [],         
+                      all : [],   
+                      isLoadingText: 'Loading....'      
                 };
         this.handleScroll = this.handleScroll.bind(this);        
      }
 
 
      componentDidMount(){
-
+          
+          let params = location.search.replace('?','&');
+          if(params==''){
+            params = '&lang=en';
+          }
           document.body.style.overflowY =
           navigator.userAgent.match(/Android|iPhone|iPad|iPod/i) ? 'hidden' : 'auto';
         // you can scroll to the specified position
@@ -34,13 +39,14 @@ class DisplayContent extends Component {
 
         // simulate initial Ajax
         setTimeout(() => {
-          axios.get('api/content?lang=en&sort_by=publish_date')
+          axios.get('api/content?sort_by=publish_date'+params)
            .then(response => {
              this.setState({ 
                 dataSource: this.state.dataSource.cloneWithRows(response.data.data),
                 items:response.data.data,
                 isLoading: false,
-                all: response.data 
+                all: response.data,
+                isLoadingText: 'Read More' 
               });
            })
            .catch(function (error) {
@@ -50,11 +56,15 @@ class DisplayContent extends Component {
      }     
 
     _addMore(){
-      console.log(this.state.all);
+       let params = location.search.replace('?','&');
+          if(params==''){
+            params = '&lang=en';
+          }
+
       if(this.state.all){
         if(this.state.all.links.next){
-          this.setState({ isLoading: true });
-          axios.get(this.state.all.links.next+'&lang=en&sort_by=publish_date')
+          this.setState({ isLoading: true,isLoadingText: 'Loading....' });
+          axios.get(this.state.all.links.next+'&sort_by=publish_date'+params)
            .then(response => {
              let data = this.state.items;
              let newData = response.data.data;
@@ -63,12 +73,15 @@ class DisplayContent extends Component {
                 dataSource: this.state.dataSource.cloneWithRows(this.state.items),
                 isLoading: false,
                 //items:response.data.data,
-                all: response.data 
+                all: response.data ,
+                isLoadingText: 'Read More' 
              });
            })
            .catch(function (error) {
              console.log(error);
            })  
+        }else{
+          this.setState({ isLoadingText: 'No Record' });
         }
       }
     }
@@ -97,11 +110,11 @@ class DisplayContent extends Component {
                   dataSource={this.state.dataSource}
                   style={{ height: 550 }} 
                   renderRow={rowData => <div style={{ padding: 16 }}>
-                    <h4>{rowData.attributes.title}</h4>
+                    <a href={`/content/detail?id=${rowData.id}&lang=en`} target="_blank"><h4>{rowData.attributes.title}</h4></a>
                     <h5> { rowData.relationships.city ? 'Location : '+ rowData.relationships.city.attributes.name : null }, Close date : {rowData.attributes.close_date} </h5>
                   </div> }
                   renderFooter={() => (<div>
-                    <button  style={{ padding: 10, width:'100%', background: '#5b95ff',color:'#fff',fontSize:16 }} onClick={this.handleScroll}>{this.state.isLoading ? 'loading...' : 'load more'}</button></div>)}                  
+                    <button  style={{ padding: 10, width:'100%', background: '#5b95ff',color:'#fff',fontSize:16 }} onClick={this.handleScroll}>{this.state.isLoadingText}</button></div>)}                  
                   onEndReachedThreshold={5}
                   pageSize={5}
                 />
