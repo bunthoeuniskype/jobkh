@@ -26,6 +26,10 @@ class ApiContentController extends Controller
             $cond[] = ['category_id',$request->category_id];
            }
 
+          if($request->sort_by){
+               return new ContentsResource(Content::where($cond)->orderBy($request->sort_by,'asc')->paginate());
+           }
+
        return new ContentsResource(Content::where($cond)->paginate());
     }
 
